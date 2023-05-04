@@ -26,17 +26,17 @@ func NewController(client kubernetes.Interface, svcInformer ICv1.ServiceInformer
 		ingressLister: ingressInformer.Lister(),
 		ServiceLister: svcInformer.Lister(),
 	}
-	svcInformer.Informer().AddEventHandler(cache.ResourceEventHandlerDetailedFuncs{
+	svcInformer.Informer().AddEventHandler(cache.ResourceEventHandlerFuncs{
 		AddFunc:    c.addSvc,
 		UpdateFunc: c.updateSvc,
 	})
-	ingressInformer.Informer().AddEventHandler(cache.ResourceEventHandlerDetailedFuncs{
+	ingressInformer.Informer().AddEventHandler(cache.ResourceEventHandlerFuncs{
 		DeleteFunc: c.deleteIngress,
 	})
 	return c
 }
 
-func (c *controllerDemo) addSvc(obj interface{}, objBool bool) {
+func (c *controllerDemo) addSvc(obj interface{}) {
 
 }
 
